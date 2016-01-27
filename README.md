@@ -25,3 +25,23 @@ it should work.
   
 You can umcomment "#define (someeffect)" to see different effect.
 For surface reconstrution I use the code form https://code.google.com/archive/p/flip3d/.
+
+Screenshots:
+
+1.one dambreak.
+
+![image](https://github.com/duoshengyu/FLIP_FLUID/blob/master/screenshots/1.png)
+
+![image](https://github.com/duoshengyu/FLIP_FLUID/blob/master/screenshots/2.png)
+
+![image](https://github.com/duoshengyu/FLIP_FLUID/blob/master/screenshots/3.png)
+
+2.two dambreak.
+
+![image](https://github.com/duoshengyu/FLIP_FLUID/blob/master/screenshots/4.png)
+
+![image](https://github.com/duoshengyu/FLIP_FLUID/blob/master/screenshots/5.png)
+
+3.obstcle.
+
+![image](https://github.com/duoshengyu/FLIP_FLUID/blob/master/screenshots/6.png)
