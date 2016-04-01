@@ -1,8 +1,9 @@
 #include "APP.h"
 
 App *g_App = 0;
-////////////////////////////////////////////////////////////////////////////////////
+//------------------------------------------------------------------------------
 //static callback function
+//------------------------------------------------------------------------------
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
@@ -107,7 +108,7 @@ bool App::InitGLFW()
 	{
 		glfwTerminate();
 		return EXIT_FAILURE;
-	}	
+	}
 
 	return true;
 }
@@ -127,9 +128,9 @@ bool App::InitGL()
 	// transparency settings
 	if (isTransparency)
 	{
-		glEnable(GL_ALPHA_TEST);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	glEnable(GL_POLYGON_OFFSET_FILL);
@@ -139,8 +140,8 @@ bool App::InitGL()
 	// line anti-aliasing
 	if (isLineSmooth)
 	{
-		glEnable(GL_LINE_SMOOTH);
-		glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	}
 
 	glMatrixMode(GL_PROJECTION);

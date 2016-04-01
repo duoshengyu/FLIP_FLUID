@@ -1,3 +1,7 @@
+//------------------------------------------------------------------------------
+//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+//I just use this for surface reconstruction.
+//------------------------------------------------------------------------------
 // File Name: Vectors.h
 // Last Modified: 9/8/2000
 // Author: Raghavendra Chandrashekara

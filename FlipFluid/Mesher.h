@@ -2,6 +2,10 @@
 *  mesher.cpp
 *  flip3D
 */
+//------------------------------------------------------------------------------
+//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+//I just use this for surface reconstruction.
+//------------------------------------------------------------------------------
 #ifndef MESHER_H
 #define MESHER_H
 #include "sorter.h"

@@ -3,3 +3,6 @@
 FlipFluid/Release/FlipFluid.log
 *.pdb
 FlipFluid/Release/FlipFluid.Build.CppClean.log
+*.sdf
+*.exe
+*.suo

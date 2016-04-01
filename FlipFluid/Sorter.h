@@ -2,6 +2,10 @@
 *  sorter.cpp
 *  flip3D
 */
+//------------------------------------------------------------------------------
+//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+//I just use this for surface reconstruction.
+//------------------------------------------------------------------------------
 
 
 #ifndef _SORTER_H

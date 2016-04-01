@@ -1,6 +1,9 @@
 #ifndef SOLVER_H
 #define SOLVER_H
-
+//------------------------------------------------------------------------------
+//PCG solver. Use to solve divergence free pressure.
+//Input is divergence of grid, output is pressure.
+//------------------------------------------------------------------------------
 #include "util.h"
 extern ofstream debug;
 class Solver
@@ -11,6 +14,7 @@ public:
 	void CG(double ***x, double ***b);
 	void MICprecon();
 	void applyPrecon(double ***z, double ***r);
+
 	//copy a to b
 	void copy(double ***a, double ***b)
 	{
@@ -19,6 +23,8 @@ public:
 			b[i][j][k] = a[i][j][k];
 		}
 	}
+
+	//dot product between two vector (grid based), have not assert check.
 	double dot_product(double ***a, double ***b)
 	{
 		double sum = 0.0;
@@ -28,20 +34,25 @@ public:
 		}
 		return sum;
 	}
+
+	//Calculate A * x.
 	void Ax(double ***result, double ***x)
 	{
 		FOR_EACH_CELL(_gridX, _gridY, _gridZ)
 		{
 			if (_mark[i][j][k] == WATER)
 			{
-				result[i][j][k] = (6.0 * x[i][j][k] - x_ref(x, i - 1, j, k, i, j, k) - x_ref(x, i + 1, j, k, i, j, k) - x_ref(x, i, j - 1, k, i, j, k)
-					- x_ref(x, i, j + 1, k, i, j, k) - x_ref(x, i, j, k - 1, i, j, k) - x_ref(x, i, j, k + 1, i, j, k)) / _deltaX2;
+				result[i][j][k] = (6.0 * x[i][j][k] - x_ref(x, i - 1, j, k, i, j, k) 
+					- x_ref(x, i + 1, j, k, i, j, k) - x_ref(x, i, j - 1, k, i, j, k)
+					- x_ref(x, i, j + 1, k, i, j, k) - x_ref(x, i, j, k - 1, i, j, k) 
+					- x_ref(x, i, j, k + 1, i, j, k)) / _deltaX2;
 			}
 			else
 				result[i][j][k] = 0.0;
 		}
 	}
-	//r = b-Ax;
+
+	//result = b - Ax.
 	void b_Ax(double ***result, double ***b, double ***Ax)
 	{
 		FOR_EACH_CELL(_gridX, _gridY, _gridZ)
@@ -54,6 +65,8 @@ public:
 				result[i][j][k] = 0.0;
 		}
 	}
+
+	//x = s * alpha.
 	void xplusAlphaS(double ***x, double ***s, double alpha)
 	{
 		FOR_EACH_CELL(_gridX, _gridY, _gridZ)
@@ -66,6 +79,7 @@ public:
 				x[i][j][k] = 0.0;
 		}
 	}
+	//s = z + beta*s
 	void splusBetaSZ(double ***x, double ***s, double alpha)
 	{
 		FOR_EACH_CELL(_gridX, _gridY, _gridZ)
@@ -78,6 +92,7 @@ public:
 				x[i][j][k] = 0.0;
 		}
 	}
+	//get corresponding divergence between grid (i j k) and gird(I J K).
 	double x_ref(double ***x, int i, int j, int k, int I, int J, int K)
 	{
 		i = min(max(0, i), _gridX - 1);

@@ -1,5 +1,12 @@
 #ifndef CISOSURFACE_H
 #define CISOSURFACE_H
+//------------------------------------------------------------------------------
+//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+//I just use this for surface reconstruction.
+//------------------------------------------------------------------------------
+
+
+
 // File Name: CIsoSurface.h
 // Last Modified: 5/8/2000
 // Author: Raghavendra Chandrashekara (basesd on source code

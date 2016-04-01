@@ -2,6 +2,10 @@
 *  implicit.h
 *  flip3D
 */
+//------------------------------------------------------------------------------
+//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+//I just use this for surface reconstruction.
+//------------------------------------------------------------------------------
 #ifndef IMPLICIT_H
 #define IMPLICIT_H
 #include <stdio.h>

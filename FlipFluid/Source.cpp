@@ -1,4 +1,8 @@
-
+//--------------------------------------------------------------------------------------------------------
+//# FLIP_FLUID
+//This is a flip fluid implement acooding to article <<3D Particle in Cell / Fluid Implicit Particle Fluid
+//Solver using OpenMP directives>>.
+//--------------------------------------------------------------------------------------------------------
 #include <windows.h>
 #include <iostream>
 #include <vector>
@@ -24,11 +28,11 @@ static std::vector<int> faces;
 static double MaxDensity;
 
 #define DRAW_PARTICLES
-#define OB
-//#define FACES
-//#define USING_GV2ADVECT
-//#define CORRECT
-//#define COMPUTE_DENSITY
+//#define OB							//you can decomment this line to see result of obstacle
+//#define FACES							//whether do surface reconstruction
+//#define USING_GV2ADVECT				//use grid velocity to advect particle (maybe this is wrong?)
+//#define CORRECT						//post correct particle
+//#define COMPUTE_DENSITY				//whether compute density per frame
 class FlipFluid : public App
 {
 public:
@@ -337,6 +341,11 @@ public:
 		}
 		glEnd();
 	}
+
+
+	//------------------------------------------------------------------------------
+	//Traversal all particles and identify which cell include them.
+	//------------------------------------------------------------------------------ 
 	void ParCellIdentification()
 	{
 		for (int i = 0; i < _grid->xNum; i++)
@@ -347,15 +356,19 @@ public:
 				}
 		for (int i = 0; i < _particle.size(); i++)
 		{
-			int x = fmax(0, fmin(_grid->xNum - 1, _particle[i]._p.X * _grid->xNum));
-			int y = fmax(0, fmin(_grid->yNum - 1, _particle[i]._p.Y * _grid->yNum));
-			int z = fmax(0, fmin(_grid->zNum - 1, _particle[i]._p.Z * _grid->zNum));
+			int x = fmax(0, fmin(_grid->xNum - 1, _particle[i]._p.X * _grid->xNum));			   //position * grid number
+			int y = fmax(0, fmin(_grid->yNum - 1, _particle[i]._p.Y * _grid->yNum));			   //
+			int z = fmax(0, fmin(_grid->zNum - 1, _particle[i]._p.Z * _grid->zNum));			   //
 #if 0
 			debug << x <<" "<< y <<" "<< z << endl;
 #endif
 			_grid->_particleInCell[x][y][z].push_back(i);
 		}
 	}
+
+	//------------------------------------------------------------------------------
+	//Mark the cell to AIR or WATER or SOLID
+	//------------------------------------------------------------------------------ 
 	void FluidSurfaceMark()
 	{
 		double alphaNLo = 0.2 * 8 * DENSITY;
@@ -368,6 +381,7 @@ public:
 			for (int j = 0; j < _grid->yNum; j++)
 				for (int k = 0; k < _grid->zNum; k++)
 				{
+					//have a particle mark to water
 					//if (_grid->_particleInCell[i][j][k].size())
 					//	_grid->_gMark[i][j][k] = WATER;
 
@@ -376,12 +390,14 @@ public:
 					{
 						densitySum += _particle[_grid->_particleInCell[i][j][k][l]].density;
 					}
+					//density in a cell is bigger than alphaNlo makt to WATER
 					if (alphaNLo < densitySum)
 					{
 						_grid->_gMark[i][j][k] = WATER;
 					}
 
 				}
+		//mark obstacle cell to SOLID.
 #ifdef OB
 		int x = 26;
 		for (int y = 12; y < 20; y++)
@@ -389,6 +405,7 @@ public:
 				_grid->_gMark[x][y][z] = SOLID;
 #endif
 	}
+
 	void addGravityF()
 	{
 		for (int i = 0; i < _particle.size(); i++)
@@ -396,6 +413,10 @@ public:
 			_particle[i]._v.Z -= 9.81 * dt;
 		}
 	}
+
+	//------------------------------------------------------------------------------
+	//get neighbour particles of one cell (total 26 cells(except solid)) 
+	//------------------------------------------------------------------------------ 
 	void getNeighbourPar(int x, int y, int z, vector<Particle*>& v_Of_p, int parnum = -1)
 	{
 		v_Of_p.clear();
@@ -414,6 +435,9 @@ public:
 					}
 				}
 	}
+	//------------------------------------------------------------------------------
+	//get neighbour particles of one grid surface in X, Y, X direction.(total 18 cells(except solid))
+	//------------------------------------------------------------------------------ 
 	void getNeighbourX(int x, int y, int z, vector<Particle*>& v_Of_p)
 	{
 		v_Of_p.clear();
@@ -462,6 +486,9 @@ public:
 					}
 				}
 	}
+	//------------------------------------------------------------------------------
+	//compute desity
+	//------------------------------------------------------------------------------ 
 	void computeDensity()
 	{
 		for (int i = 0; i < _particle.size(); i++)
@@ -479,6 +506,9 @@ public:
 
 		}
 	}
+	//------------------------------------------------------------------------------
+	//Set all boundary velocity to zero
+	//------------------------------------------------------------------------------ 
 	void setBoundaryVe()
 	{
 		//set x
@@ -526,6 +556,9 @@ public:
 			}
 #endif
 	}
+	//------------------------------------------------------------------------------
+	//map particle velocity to grid
+	//------------------------------------------------------------------------------ 
 	void P2G()
 	{
 		vector<Particle*> neighbours;
@@ -536,12 +569,12 @@ public:
 			if (j < _grid->yNum && k < _grid->zNum)
 			{
 				Vec3 pos = { dH * i, dH * j + 0.5 * dH, dH * k + 0.5 * dH };
-				getNeighbourX(i, j, k, neighbours);
+				getNeighbourX(i, j, k, neighbours);													//get neighbour particles
 				double sumW = 0;
 				double sumX = 0;
 				for (int l = 0; l < neighbours.size(); l++)
 				{
-					double w = sharp_kernel(length2(pos, neighbours[l]->_p), 1.4);
+					double w = sharp_kernel(length2(pos, neighbours[l]->_p), 1.4);					//use stiff kernel weight to sample
 					sumW += w;
 					sumX += w * neighbours[l]->_v.X;
 				}
@@ -579,6 +612,9 @@ public:
 			}
 		}
 	}
+	//------------------------------------------------------------------------------
+	//Tri-linear interpolation
+	//------------------------------------------------------------------------------ 
 	double trilinInterpolation(double ***q, double x, double y, double z, int w, int h, int d)
 	{
 		x = fmax(0.0, fmin(w, x));
@@ -591,6 +627,9 @@ public:
 		return	(k + 1 - z)*(((i + 1 - x)*q[i][j][k] + (x - i)*q[i + 1][j][k])*(j + 1 - y) + ((i + 1 - x)*q[i][j + 1][k] + (x - i)*q[i + 1][j + 1][k])*(y - j)) +
 			(z - k)*(((i + 1 - x)*q[i][j][k + 1] + (x - i)*q[i + 1][j][k + 1])*(j + 1 - y) + ((i + 1 - x)*q[i][j + 1][k + 1] + (x - i)*q[i + 1][j + 1][k + 1])*(y - j));
 	}
+	//------------------------------------------------------------------------------
+	//transform grid velocity to particles
+	//------------------------------------------------------------------------------ 
 	void G2P(double ***vx, double ***vy, double ***vz)
 	{
 		for (int i = 0; i < _particle.size(); i++)
@@ -614,6 +653,10 @@ public:
 		v[1] = trilinInterpolation(vy, x * _grid->xNum - 0.5, y * _grid->yNum, z * _grid->zNum - 0.5, _grid->xNum, _grid->yNum + 1, _grid->xNum);
 		v[2] = trilinInterpolation(vz, x * _grid->xNum - 0.5, y * _grid->yNum - 0.5, z * _grid->zNum, _grid->xNum, _grid->yNum, _grid->xNum + 1);
 	}
+	//------------------------------------------------------------------------------
+	//calculate the divergence of velocity in grid
+	//¡°how much¡± the grid velocity is changing between two continuous grid cells
+	//------------------------------------------------------------------------------ 
 	double DivOfVelocity(int x, int y, int z)
 	{
 		double uxleft;
@@ -638,6 +681,10 @@ public:
 #endif
 		return ((uxright - uxleft) + (uyright - uyleft) + (uzright - uzleft)) / dH;
 	}
+	//------------------------------------------------------------------------------
+	//sample a velocity for the grid surface near water surface.
+	//when a surface is not water, not near water and is air or near solid.
+	//------------------------------------------------------------------------------ 
 	void velocityExtrapolation()
 	{//somthing wrong
 		//mark face
@@ -747,8 +794,11 @@ public:
 				}
 
 	}
-
+	//------------------------------------------------------------------------------
 	//solve pressure
+	//and advect grid velocity
+	//------------------------------------------------------------------------------ 
+	
 	void solvePressureAndNewV()
 	{
 		//get divgence
@@ -793,6 +843,10 @@ public:
 			}
 		}
 	}
+	//------------------------------------------------------------------------------
+	//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+	//velocity resample
+	//------------------------------------------------------------------------------
 	void resample(Vec3 &p, Vec3 &u, double re) {
 		// Variables for Neighboring Particles
 		double wsum = 0.0;
@@ -830,6 +884,10 @@ public:
 			u.Z = save[2];
 		}
 	}
+	//------------------------------------------------------------------------------
+	//reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
+	//velocity correct
+	//------------------------------------------------------------------------------
 	void correct()
 	{
 		double re = DENSITY / 32;
@@ -893,6 +951,10 @@ public:
 			p->_v.Z = p->_tempv.Z;
 		}
 	}
+	//------------------------------------------------------------------------------
+	//if a particle move into solid cell
+	//then reposition this particle to grid(0,0,0) and sample a velocity
+	//------------------------------------------------------------------------------
 	void reposition()
 	{
 		vector<uint> repoList;
@@ -962,6 +1024,9 @@ public:
 			p._v = u;
 		}
 	}
+	//------------------------------------------------------------------------------
+	//simulate function.
+	//------------------------------------------------------------------------------
 	void simulate()
 	{
 		//match particle to corresponding cell
@@ -1152,6 +1217,7 @@ bool FlipFluid::Init()
 	//calculate max density
 	double dH = _grid->deltaH;
 	double dH_4 = dH * 0.25;
+	//initiate particle position and velocity
 	FOR_EACH_CELL(10,10,10) 
 	{
 		_particle.push_back(Particle(i*dH + dH_4, j*dH + dH_4, k*dH + dH_4, 0, 0, 0));

@@ -1,5 +1,10 @@
 #ifndef TIMER_H
 #define TIMER_H
+//------------------------------------------------------------------------------
+//My Timer. Use for calculate time usage for per frame.
+//
+//------------------------------------------------------------------------------
+
 
 #include <iostream>
 #include <windows.h>
@@ -33,15 +38,19 @@ public:
 	{
 		numFrames++;
 	}
-	inline static void tic()
-	{
-		QueryPerformanceCounter((LARGE_INTEGER*)&preTime);
-	}
+
+	//record the time now.
+	inline static void tic()													//tic() and toc() should be used together
+	{																			//like
+		QueryPerformanceCounter((LARGE_INTEGER*)&preTime);						// tic();
+	}																			//     do something
+	//record the time used by input parameter "name".							// toc("something");
 	inline static void toc(string name)
 	{
 		QueryPerformanceCounter((LARGE_INTEGER*)&curTime);
 		timingBreakdown[name] += (curTime - preTime);
 	}
+	// print the time usage of your record.
 	static void printTime()
 	{
 		double sum = 0.0;
@@ -56,6 +65,7 @@ public:
 		cout << "Persent: " << 100.0 - 100.0 * sum << endl;
 		cout << "========================================================================================" << endl;
 	}
+	//get fps
 	inline static double fps()
 	{
 		QueryPerformanceCounter((LARGE_INTEGER*)&curTime);

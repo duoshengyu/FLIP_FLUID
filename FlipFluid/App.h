@@ -1,11 +1,11 @@
 #ifndef APP_H
 #define APP_H
+//------------------------------------------------------------------------------
 //Simple opengl + glfw demo application class.  
 //You can create your application simply derive from App class
 //You need to overwrite framework methods.
-#if defined(WIN32)
+//------------------------------------------------------------------------------
 #include <windows.h>
-#endif
 
 #include <cstdio>
 #include <iostream>
