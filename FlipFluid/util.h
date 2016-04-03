@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------
 //Inluding macro defination, structs,utility functions, grid defination.
 //------------------------------------------------------------------------------
+#include <limits>
 #include <algorithm>
 #include <vector>
 #define FOR_EACH_CELL(I, J, K)  for(int i = 0; i < I; i++)for(int j = 0; j < J; j++)for(int k = 0; k < K; k++)
@@ -18,6 +19,8 @@
 #define VCOEFFICIENT 0.05
 #define SPRING 50
 
+#define min(a,b) (((a)<(b))?(a):(b))
+#define max(a,b) (((a)>(b))?(a):(b))
 //#define USING_GV2ADVECT
 
 typedef unsigned int uint;
@@ -38,39 +41,39 @@ typedef struct
 }Vec3, Position, Velocity;
 
 //square of length of two vector3
-double length2(Vec3& a, Vec3& b)
+static double length2(Vec3& a, Vec3& b)
 {
 	return (a.X - b.X)*(a.X - b.X) + (a.Y - b.Y) *(a.Y - b.Y) + (a.Z - b.Z)*(a.Z - b.Z);
 }
 //length of two vector3
-double length(Vec3& a, Vec3& b)
+static double length(Vec3& a, Vec3& b)
 {
 	return sqrt(length2(a, b));
 }
 //length of two double[3]
-double length(double p0[3], double p1[3]) {
+static double length(double p0[3], double p1[3]) {
 	return hypotf(hypotf(p0[0] - p1[0], p0[1] - p1[1]), p0[2] - p1[2]);
 }
 
-double hypot2(double a, double b, double c) {
+static double hypot2(double a, double b, double c) {
 	return a*a + b*b + c*c;
 }
 //square of length of two double[3]
-double length2(double p0[3], double p1[3]) {
+static double length2(double p0[3], double p1[3]) {
 	return hypot2(p0[0] - p1[0], p0[1] - p1[1], p0[2] - p1[2]);
 }
 
 //Smooth Kernel Functions
-double smooth_kernel(double d, double h)
+static double smooth_kernel(double d, double h)
 {
 	return fmax(1.0 - d / (h*h), 0.0);
 }
-double sharp_kernel(double d, double h)
+static double sharp_kernel(double d, double h)
 {
 	return fmax((h*h) / fmax(d, 1.0e-5) - 1.0, 0.0);
 }
 //copy a to b
-void mycopy(double ***src, double ***des, int x, int y, int z)
+static void mycopy(double ***src, double ***des, int x, int y, int z)
 {
 	FOR_EACH_CELL(x, y, z)
 	{
@@ -79,7 +82,7 @@ void mycopy(double ***src, double ***des, int x, int y, int z)
 }
 //allocate memory
 template<class T>
-T*** memAlloc3D(int x, int y, int z)
+static T*** memAlloc3D(int x, int y, int z)
 {
 	T ***mem = new T**[x];
 	for (int i = 0; i < x; i++)

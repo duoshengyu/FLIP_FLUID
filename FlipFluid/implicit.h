@@ -6,6 +6,7 @@
 //reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
 //I just use this for surface reconstruction.
 //------------------------------------------------------------------------------
+#pragma once
 #ifndef IMPLICIT_H
 #define IMPLICIT_H
 #include <stdio.h>
@@ -43,7 +44,7 @@ static double implicit_func(vector<Particle *> &neighbors, double p[3], double d
 	return phi - density / gn;
 }
 
-double implicit::implicit_func(sorter *sort, double p[3], double density) {
+static double implicit::implicit_func(sorter *sort, double p[3], double density) {
 	int gn = sort->getCellSizeX();
 	vector<Particle *> neighbors = sort->getNeigboringParticles_cell(
 		fmax(0, fmin(gn - 1, gn*p[0])),

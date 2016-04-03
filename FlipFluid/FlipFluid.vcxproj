@@ -81,13 +81,18 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="CIsoSurface.cpp" />
+    <ClCompile Include="FLIP.cpp" />
+    <ClCompile Include="solver.cpp" />
+    <ClCompile Include="Sorter.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="FLIP_other.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vectors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="CIsoSurface.h" />
+    <ClInclude Include="FLIP.h" />
     <ClInclude Include="implicit.h" />
     <ClInclude Include="Mesher.h" />
     <ClInclude Include="solver.h" />

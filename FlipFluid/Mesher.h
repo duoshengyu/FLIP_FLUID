@@ -6,13 +6,14 @@
 //reference to https://code.google.com/archive/p/flip3d/ ando`s filp code.
 //I just use this for surface reconstruction.
 //------------------------------------------------------------------------------
+#pragma once
 #ifndef MESHER_H
 #define MESHER_H
 #include "sorter.h"
 #include <vector>
 
 namespace mesher {
-	void generateMesh(char ***A, sorter *sort, std::vector<Particle> &particles, double density, int mg,
+	static void generateMesh(char ***A, sorter *sort, std::vector<Particle> &particles, double density, int mg,
 		std::vector<double> &vertices, std::vector<double> &normals, std::vector<int> &faces);
 }
 #include "util.h"
@@ -149,7 +150,7 @@ normals[3 * i + 2] = n[2];
 }
 }
 */
-void mesher::generateMesh(char ***A, sorter *sort, std::vector<Particle> &particles, double density, int mg,
+static void mesher::generateMesh(char ***A, sorter *sort, std::vector<Particle> &particles, double density, int mg,
 	std::vector<double> &vertices, std::vector<double> &normals, std::vector<int> &faces) {
 	static double *dense_grid = new double[mg*mg*mg];
 
