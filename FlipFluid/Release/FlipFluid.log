@@ -1,0 +1,80 @@
+﻿  FLIP.cpp
+d:\github\flip_fluid\flipfluid\util.h(22): warning C4005: 'min' : macro redefinition
+          C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(197) : see previous definition of 'min'
+d:\github\flip_fluid\flipfluid\util.h(23): warning C4005: 'max' : macro redefinition
+          C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(193) : see previous definition of 'max'
+d:\github\flip_fluid\flipfluid\util.h(55): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+d:\github\flip_fluid\flipfluid\implicit.h(27): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\implicit.h(53): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+d:\github\flip_fluid\flipfluid\Mesher.h(35): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\Mesher.h(59): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\Mesher.h(78): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+d:\github\flip_fluid\flipfluid\Mesher.h(86): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\Mesher.h(105): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\Mesher.h(179): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+d:\github\flip_fluid\flipfluid\Mesher.h(181): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\Mesher.h(208): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(175): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(306): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(326): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(328): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(329): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(330): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(358): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(380): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(399): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(420): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(436): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(452): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(463): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(466): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(469): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(544): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(559): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(574): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(592): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(593): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(594): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(604): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(872): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(881): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(891): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(911): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(932): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(1000): warning C4018: '<' : signed/unsigned mismatch
+FLIP.cpp(1012): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+FLIP.cpp(1073): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+FLIP.cpp(1074): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+FLIP.cpp(1109): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+FLIP.cpp(1110): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+FLIP.cpp(1113): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(1114): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(1124): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+FLIP.cpp(1125): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+d:\github\flip_fluid\flipfluid\CIsoSurface.h(488): warning C4018: '<' : signed/unsigned mismatch
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(468) : while compiling class template member function 'void CIsoSurface<short>::GenerateSurface(const T *,T,unsigned int,unsigned int,unsigned int,float,float,float)'
+          with
+          [
+              T=short
+          ]
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(918) : see reference to class template instantiation 'CIsoSurface<short>' being compiled
+d:\github\flip_fluid\flipfluid\CIsoSurface.h(876): warning C4018: '<' : signed/unsigned mismatch
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(871) : while compiling class template member function 'void CIsoSurface<short>::CalculateNormals(void)'
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(637) : see reference to function template instantiation 'void CIsoSurface<short>::CalculateNormals(void)' being compiled
+d:\github\flip_fluid\flipfluid\CIsoSurface.h(910): warning C4018: '<' : signed/unsigned mismatch
+d:\github\flip_fluid\flipfluid\CIsoSurface.h(815): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(811) : while compiling class template member function 'POINT3DID CIsoSurface<double>::Interpolate(float,float,float,float,float,float,T,T)'
+          with
+          [
+              T=double
+          ]
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(805) : see reference to function template instantiation 'POINT3DID CIsoSurface<double>::Interpolate(float,float,float,float,float,float,T,T)' being compiled
+          with
+          [
+              T=double
+          ]
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(647) : while compiling class template member function 'void CIsoSurface<double>::DeleteSurface(void)'
+          d:\github\flip_fluid\flipfluid\CIsoSurface.h(464) : see reference to function template instantiation 'void CIsoSurface<double>::DeleteSurface(void)' being compiled
+  Generating code
+  Finished generating code
+  FlipFluid.vcxproj -> D:\GitHub\FLIP_FLUID\Release\FlipFluid.exe
