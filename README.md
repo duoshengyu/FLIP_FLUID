@@ -29,25 +29,30 @@ Solver using OpenMP directives]によって作成したものです。
 
 
 *プログラムを作成する上で苦労した箇所は？
+
 デバッグ、FLIP流体体シミュレーションの勉強
 
 *力をいれて作った部分で、「プログラム上」で特に注意してみてもらいたい箇所は？
+
 粒子とグリッド間のスピードマッピング、FLIP.cppのP2G、G2P 関数
 プレッシャーの連立一次方程式を解くための共役勾配法の実装
 FLIP.cppのsolvePressureAndNewV()　と　solver.h solver.cpp クラス(flip3dのフローワークによって修正)
 
 
 *参考にしたソースファイルがあるなら、どの様なところを参考にしましたか？またその部分のファイル名を書いてください
+
 flip3d：https://code.google.com/archive/p/flip3d/
 メッシュの構成(surface construction)に参考。
 
 *他人のコードと関数：FLIP_other.cpp　粒子の後処理
 
-                  CIsoSurface.h CIsoSurface.cpp implict.h 
-                  Vectors.h Vectors.cpp Sorter.h Sorter.cpp
-                  メッシュの構成(surface construction)に使用、
-                  提供している実行ファイル、またはそのままプロジェクトをビルドすると
-                  使っていません。
+CIsoSurface.h CIsoSurface.cpp implict.h 
+
+Vectors.h Vectors.cpp Sorter.h Sorter.cpp
+
+メッシュの構成(surface construction)に使用、
+提供している実行ファイル、またはそのままプロジェクトをビルドすると
+使っていません。
 
 
 # FLIP_FLUID
